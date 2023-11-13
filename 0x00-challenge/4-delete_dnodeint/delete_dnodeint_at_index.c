@@ -22,7 +22,7 @@ int delete_dnodeint_at_index(dlistint_t **head, unsigned int index)
 	saved_head = *head;
 	p = 0;
 	/* iterate till you find the node of the end of the list (works) */
-	while (p < index && *head != NULL)
+	while (*head != NULL && p < index)
 	{
 		*head = (*head)->next;
 		p++;
