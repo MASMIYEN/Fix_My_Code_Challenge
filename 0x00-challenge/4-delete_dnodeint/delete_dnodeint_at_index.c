@@ -21,16 +21,19 @@ int delete_dnodeint_at_index(dlistint_t **head, unsigned int index)
 	}
 	saved_head = *head;
 	p = 0;
+	/* iterate till you find the node of the end of the list (works) */
 	while (p < index && *head != NULL)
 	{
 		*head = (*head)->next;
 		p++;
 	}
+	/* if index is larger than len list (works) */
 	if (p != index)
 	{
 		*head = saved_head;
 		return (-1);
 	}
+	/* if I wanna delete the first node (works) */
 	if (0 == index)
 	{
 		tmp = (*head)->next;
@@ -41,12 +44,14 @@ int delete_dnodeint_at_index(dlistint_t **head, unsigned int index)
 			tmp->prev = NULL;
 		}
 	}
+	/* if the node is somewhere in the middle */
 	else
 	{
-		(*head)->prev->prev = (*head)->prev;
-		free(*head);
+		(*head)->prev->next = (*head)->next;
+
 		if ((*head)->next)
 			(*head)->next->prev = (*head)->prev;
+		free(*head);
 		*head = saved_head;
 	}
 	return (1);
